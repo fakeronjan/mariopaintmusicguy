@@ -86,15 +86,25 @@
   .clinks a{font-size:12.5px;font-weight:700;text-decoration:none;color:var(--sub);border:2px solid var(--border);border-radius:9px;padding:6px 11px}
   .clinks a.off{opacity:.35;pointer-events:none}
 
-  /* about */
-  .about{max-width:760px;margin:0 auto;padding:36px 0 60px;text-align:center}
-  .about .ahero{font-size:clamp(28px,5vw,44px);margin:0 0 6px}
-  .about .asub{color:var(--sub);font-size:16px;margin:0 0 30px}
-  .about blockquote{margin:16px 0;font-size:19px;line-height:1.5;color:var(--text)}
-  .about blockquote.big{font-size:clamp(22px,3.6vw,30px);font-weight:700;color:var(--gold);border-top:2px solid var(--border);border-bottom:2px solid var(--border);padding:22px 0;margin:28px 0}
-  .about .apurpose{color:var(--sub);font-size:15px;margin-top:26px}
-  .about .alinks{margin-top:22px;font-weight:700}
-  .about .alinks a{color:var(--blue);text-decoration:none;border-bottom:2px solid var(--blue)}
+  /* about / story */
+  .about{max-width:680px;margin:0 auto;padding:44px 0 64px}
+  .alead{font-size:clamp(21px,2.9vw,26px);line-height:1.4;text-align:center;color:var(--text);margin:0 auto 18px;max-width:600px;font-weight:700;letter-spacing:-.01em}
+  .aintro{text-align:center;color:var(--sub);font-size:16.5px;line-height:1.65;max-width:590px;margin:0 auto}
+  .chapter{padding:34px 0;border-top:2px solid var(--border)}
+  .chapter h3{font-size:clamp(22px,3.5vw,29px);margin:0 0 16px;line-height:1.15}
+  .chapter p{font-size:17px;line-height:1.68;margin:0 0 15px}
+  .chapter p:last-child{margin-bottom:0}
+  .chapter a{color:var(--blue);text-decoration:none;border-bottom:1.5px solid currentColor;font-weight:600}
+  .chapter a:hover{opacity:.72}
+  .chapter ul{list-style:none;padding:0;margin:16px 0 0;display:flex;flex-direction:column;gap:12px}
+  .chapter li{position:relative;padding-left:26px;font-size:16.5px;line-height:1.55}
+  .chapter li::before{content:"\266A";position:absolute;left:2px;top:0;color:var(--blue);font-size:15px}
+  .about blockquote.big{font-size:clamp(21px,3.3vw,28px);font-weight:700;color:var(--gold);border-top:2px solid var(--border);border-bottom:2px solid var(--border);padding:26px 10px;margin:26px 0;text-align:center;line-height:1.38}
+  blockquote.big cite{display:block;font-style:normal;font-weight:700;font-size:14px;color:var(--sub);margin-top:14px;letter-spacing:.02em}
+  .aout{margin-top:38px;padding-top:28px;border-top:2px solid var(--border);text-align:center}
+  .aout .l{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);font-weight:700;margin-bottom:14px}
+  .aout a.blog{color:var(--blue);text-decoration:none;border-bottom:2px solid var(--blue);font-weight:700;margin:0 10px;line-height:2.4;white-space:nowrap}
+  .aout .yt{display:inline-block;margin-top:20px;background:#ff0000;color:#fff;border-radius:12px;padding:12px 22px;text-decoration:none;font-weight:700;font-size:15px}
   .hide{display:none}
   footer{border-top:2px solid var(--border);padding:20px 0 34px;color:var(--sub);font-size:12.5px;text-align:center}
 </style>
@@ -139,7 +149,55 @@
 
 <div id="view-about" class="hide">
   <div class="wrap about">
-    <p class="asub" style="padding:70px 0">Coming soon</p>
+    <p class="alead">Hi there, I&rsquo;m the Mario Paint Music Guy! Welcome to my world!</p>
+    <p class="aintro">I&rsquo;ve been writing music in the original Super Nintendo game Mario Paint since it released in 1992. As a child, it was a tremendous creative outlet for me. As an adult, it&rsquo;s become a way to keep my connection to music going.</p>
+
+    <section class="chapter">
+      <h3>Musical background</h3>
+      <p>I&rsquo;ve been a classically trained musician since age 3. I started on the piano and added the violin when I was 6.</p>
+      <p>My childhood was full of music in many aspects:</p>
+      <ul>
+        <li>I connected with my heritage by playing Bengali music, ultimately performing live on TV in India and recording a CD</li>
+        <li>I was a competitive pianist who twice performed at Carnegie Hall in middle school, but I had a knack for finishing in 2nd place and decided I didn&rsquo;t have what it took</li>
+        <li>I gave up my Sundays playing in the Cincinnati Junior Strings and the Cincinnati Symphony Youth Orchestra from 4th through 12th grade, peaking at 4th chair</li>
+        <li>I learned how to compose early on and used several tools, including Mario Paint, to keep the creativity alive</li>
+      </ul>
+    </section>
+
+    <section class="chapter">
+      <h3>Long break</h3>
+      <p>After I graduated high school, I didn&rsquo;t do much with music. I would play my childhood piano when I was in town here and there, I kept playing around with Mario Paint here and there, and I tried joining a local band called Full Spectrum. It was fits and starts, and it bothered me.</p>
+    </section>
+
+    <section class="chapter">
+      <h3>This project</h3>
+      <p>In 2025 I wrote a <a href="https://fakeronjan.com/blog/2025/8/17/40-years-a-musician" target="_blank" rel="noopener">birthday retro</a> about my 40 years as a musician to date. At the end, I promised myself that I&rsquo;d find a way to bring music back into my life on a regular basis. It&rsquo;s the thing I have always done best and I should be doing it more.</p>
+      <p>After watching a <a href="https://www.youtube.com/watch?v=aHuQZVtzdIo" target="_blank" rel="noopener">Nintendo Life video</a> about Mario Paint, I was inspired to start up this project. Be the Mario Paint Music Guy who uses the original Mario Paint both to bring back old works I&rsquo;d written as a child and create new ones.</p>
+      <p>I decided to start with a <a href="https://fakeronjan.com/blog/2025/12/7/100-days-as-the-mario-paint-music-guy" target="_blank" rel="noopener">100-day upload challenge</a>. I created and uploaded songs across genres - video games, pop, TV themes, original compositions, and more. It was amazing, and I wanted to keep going.</p>
+      <p>So I have. The cadence isn&rsquo;t daily anymore, but I have this outlet anytime the mood strikes.</p>
+    </section>
+
+    <section class="chapter">
+      <h3>Why original Mario Paint</h3>
+      <p>There are many tools with more flexibility than Mario Paint, including mods. But for me, the limitations of Mario Paint are the real charm.</p>
+      <p>You only have 96 beats to create with. That&rsquo;s 24 measures of 4/4 or 32 measures of 3/4.</p>
+      <p>You only have 15 instruments to use, and only 3 of them can play simultaneously. And none of them can play the same note.</p>
+      <p>You can&rsquo;t use sharps or flats, meaning you&rsquo;re locked into C / F / G major and A / D / E minor depending on what you can get away with.</p>
+      <p>So the magic trick is, given these limitations, how can you capture the essence of a musical work? Every single decision is thoughtful, the tradeoffs clear. And I love it.</p>
+    </section>
+
+    <section class="chapter">
+      <h3>The process</h3>
+      <p>I write these by ear, and each song takes me between 20 and 30 minutes to put together. I&rsquo;ll first write up the melody, then typically bassline, percussion, countermelody, and embellishments in that order. Check out the <a href="https://www.youtube.com/watch?v=ODpYoeWWM_s" target="_blank" rel="noopener">NFL on NBC</a> or <a href="https://www.youtube.com/watch?v=NL6EQAy2Z1I" target="_blank" rel="noopener">NFL on FOX</a> videos to see it in action!</p>
+    </section>
+
+    <div class="aout">
+      <p class="l">Read the full stories</p>
+      <a class="blog" href="https://fakeronjan.com/blog/2025/8/17/40-years-a-musician" target="_blank" rel="noopener">40 Years a Musician</a>
+      <a class="blog" href="https://fakeronjan.com/blog/2025/12/7/100-days-as-the-mario-paint-music-guy" target="_blank" rel="noopener">100 Days as the Mario Paint Music Guy</a>
+      <br>
+      <a class="yt" href="https://www.youtube.com/@MarioPaintMusicGuy" target="_blank" rel="noopener">&#9654; Watch on YouTube</a>
+    </div>
   </div>
 </div>
 
@@ -246,8 +304,9 @@ function showTab(which){
   document.getElementById("tab-videos").setAttribute("aria-selected",which==="videos");
   document.getElementById("tab-about").setAttribute("aria-selected",which==="about");
 }
-document.getElementById("tab-videos").onclick=()=>showTab("videos");
-document.getElementById("tab-about").onclick=()=>showTab("about");
+document.getElementById("tab-videos").onclick=()=>{showTab("videos");history.replaceState(null,"","#videos");};
+document.getElementById("tab-about").onclick=()=>{showTab("about");history.replaceState(null,"","#about");window.scrollTo(0,0);};
+if(location.hash==="#about") showTab("about");
 let filtersOpen = window.innerWidth > 640;   // open on desktop, closed on mobile
 function applyFilters(){ document.querySelector(".controls").classList.toggle("collapsed", !filtersOpen); }
 document.getElementById("filtersToggle").onclick=()=>{ filtersOpen=!filtersOpen; applyFilters(); };
