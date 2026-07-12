@@ -231,7 +231,7 @@ const tv=c=>(c.regViews||0)+(c.shortViews||0);
 const NAMECOLORS=["blue","pink","gold","mint","purple"];
 // stable per-song color: rotate the 5 colors in chronological (recorded) order → uniform distribution
 const SONGCOLOR={};
-CATALOG.slice().sort((a,b)=>(a.recorded||"").localeCompare(b.recorded||"")||a.regId.localeCompare(b.regId))
+CATALOG.slice().sort((a,b)=>(a.recorded||"").localeCompare(b.recorded||"")||(a.published||"").localeCompare(b.published||"")||a.regId.localeCompare(b.regId))
   .forEach((c,i)=>{SONGCOLOR[c.regId]=NAMECOLORS[i%5];});
 const fmtD=s=>{if(!s)return"";const[y,m,d]=s.split("-");return `${+m}/${+d}/${y}`;};
 const col=t=>TYPE_COLOR[t]||"#6ec6ff", emo=t=>TYPE_EMOJI[t]||"🎵";
