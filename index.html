@@ -77,6 +77,11 @@
   .thumb iframe{width:100%;height:100%;border:0;display:block}
   .cbody{padding:12px 13px 7px;flex:1}
   .ctitle{font-weight:700;font-size:15.5px;line-height:1.25}
+  /* each song title gets one of the 5 staff-band colors, stable per song */
+  .nc-blue{color:var(--blue)} .nc-pink{color:var(--pink)} .nc-gold{color:var(--gold)} .nc-mint{color:var(--mint)} .nc-purple{color:var(--purple)}
+  @media (prefers-color-scheme:light){
+    .nc-blue{color:#2079a8} .nc-pink{color:#cf5175} .nc-gold{color:#9c6f12} .nc-mint{color:#2e8b5c} .nc-purple{color:#8a4bc2}
+  }
   .cby{color:var(--sub);font-size:13px;margin-top:2px}
   .cmeta{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
   .cdates{margin-top:8px;font-size:11px;color:var(--sub);font-variant-numeric:tabular-nums}
@@ -223,6 +228,11 @@ const TYPE_COLOR={"Video Game":"#6ec6ff","Sports":"#ffd166","Movie":"#ff8ba7","T
 const DECS=["1930s","1950s","1970s","1980s","1990s","2000s","2010s","2020s"];
 const nf=n=>n==null?"":n.toLocaleString();
 const tv=c=>(c.regViews||0)+(c.shortViews||0);
+const NAMECOLORS=["blue","pink","gold","mint","purple"];
+// stable per-song color: rotate the 5 colors in chronological (recorded) order → uniform distribution
+const SONGCOLOR={};
+CATALOG.slice().sort((a,b)=>(a.recorded||"").localeCompare(b.recorded||"")||a.regId.localeCompare(b.regId))
+  .forEach((c,i)=>{SONGCOLOR[c.regId]=NAMECOLORS[i%5];});
 const fmtD=s=>{if(!s)return"";const[y,m,d]=s.split("-");return `${+m}/${+d}/${y}`;};
 const col=t=>TYPE_COLOR[t]||"#6ec6ff", emo=t=>TYPE_EMOJI[t]||"🎵";
 
@@ -290,7 +300,7 @@ function card(c){
       <div class="play"><span>&#9654;</span></div>
     </div>
     <div class="cbody">
-      <div class="ctitle">${c.song}</div>
+      <div class="ctitle nc-${SONGCOLOR[c.regId]}">${c.song}</div>
       <div class="cby">${by}${c.artist&&c.source?` &middot; ${c.source}`:""}</div>
       <div class="cmeta">${c.decade?`<span class="pill">${c.decade}</span>`:""}${genrePills}</div>
       <div class="cdates">${c.recorded?`Recorded ${fmtD(c.recorded)}`:""}${c.published?` &middot; Published ${fmtD(c.published)}`:""}</div>
