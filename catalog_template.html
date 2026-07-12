@@ -92,6 +92,19 @@
   .aintro{text-align:center;color:var(--sub);font-size:16.5px;line-height:1.65;max-width:590px;margin:0 auto}
   .chapter{padding:34px 0;border-top:2px solid var(--border)}
   .chapter h3{font-size:clamp(22px,3.5vw,29px);margin:0 0 16px;line-height:1.15}
+  /* rotate the 5 staff-band colors across the chapter titles (blue,pink,gold,mint,purple) */
+  .about section:nth-of-type(1) h3{color:var(--blue)}
+  .about section:nth-of-type(2) h3{color:var(--pink)}
+  .about section:nth-of-type(3) h3{color:var(--gold)}
+  .about section:nth-of-type(4) h3{color:var(--mint)}
+  .about section:nth-of-type(5) h3{color:var(--purple)}
+  @media (prefers-color-scheme:light){
+    .about section:nth-of-type(1) h3{color:#2079a8}
+    .about section:nth-of-type(2) h3{color:#cf5175}
+    .about section:nth-of-type(3) h3{color:#9c6f12}
+    .about section:nth-of-type(4) h3{color:#2e8b5c}
+    .about section:nth-of-type(5) h3{color:#8a4bc2}
+  }
   .chapter p{font-size:17px;line-height:1.68;margin:0 0 15px}
   .chapter p:last-child{margin-bottom:0}
   .chapter a{color:var(--blue);text-decoration:none;border-bottom:1.5px solid currentColor;font-weight:600}
