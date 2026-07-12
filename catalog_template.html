@@ -104,11 +104,6 @@
     <img class="avatar" src="./avatar.png" alt="Mario Paint Music Guy">
     <div class="brand">
       <h1>Mario Paint Music Guy</h1>
-      <div class="stats">
-        <div class="stat"><b id="s-tracks">0</b><span>Tracks</span></div>
-        <div class="stat"><b id="s-views">0</b><span>Total views</span></div>
-        <div class="stat"><b id="s-cats">0</b><span>Genres</span></div>
-      </div>
     </div>
   </div>
   <div class="wrap"><nav class="tabs">
@@ -145,7 +140,6 @@
   </div>
 </div>
 
-<footer class="wrap">Made in original Mario Paint (SNES, 1992). 96 beats, 3 instruments, no sharps or flats.</footer>
 
 <script>
 const CATALOG = __CATALOG__;
@@ -255,9 +249,6 @@ let filtersOpen = window.innerWidth > 640;   // open on desktop, closed on mobil
 function applyFilters(){ document.querySelector(".controls").classList.toggle("collapsed", !filtersOpen); }
 document.getElementById("filtersToggle").onclick=()=>{ filtersOpen=!filtersOpen; applyFilters(); };
 applyFilters();
-document.getElementById("s-tracks").textContent=CATALOG.length;
-document.getElementById("s-views").textContent=nf(CATALOG.reduce((s,c)=>s+(c.regViews||0),0));
-document.getElementById("s-cats").textContent=Object.keys(counts(c=>c.genres)).length;
 render();
 </script>
 </body>
