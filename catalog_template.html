@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mario Paint Music Guy</title>
+<style>
+  :root{
+    --navy:#1a1a2e; --navy-2:#12121f; --panel:#25253a; --panel-2:#2f2f48;
+    --cream:#fff8e7; --muted:#a9a6c4; --line:#3a3a56;
+    --blue:#6ec6ff; --gold:#ffd166; --pink:#ff8ba7; --mint:#7ed9a0; --purple:#c792ea;
+    --font:"Candara","Gill Sans","Gill Sans MT","Segoe UI",system-ui,sans-serif;
+    --ground:var(--navy); --ground-2:var(--navy-2); --card:var(--panel); --card-2:var(--panel-2);
+    --text:var(--cream); --sub:var(--muted); --border:var(--line);
+  }
+  @media (prefers-color-scheme:light){
+    :root{ --ground:#fff8e7; --ground-2:#f4ecd6; --card:#fff; --card-2:#fbf5e6;
+      --text:#1a1a2e; --sub:#6a6784; --border:#e6dcc2; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--text);font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(14px,3vw,28px)}
+
+  /* header: staff lines confined to a thin top band so text stays clean */
+  header{background:var(--ground-2);border-bottom:2px solid var(--border)}
+  .staffband{height:10px;background:repeating-linear-gradient(90deg,
+    var(--blue) 0 20%,var(--pink) 20% 40%,var(--gold) 40% 60%,var(--mint) 60% 80%,var(--purple) 80% 100%);opacity:.85}
+  .head-inner{display:flex;gap:18px;align-items:center;flex-wrap:wrap;padding:clamp(18px,3.5vw,28px) 0}
+  .avatar{width:84px;height:84px;flex:none;border-radius:16px;border:3px solid #1a1a2e;object-fit:cover;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+  .brand h1{margin:0;font-size:clamp(26px,4.4vw,40px);font-weight:700;letter-spacing:-.01em;line-height:1.05}
+  .stats{display:flex;gap:22px;flex-wrap:wrap;margin-top:10px}
+  .stat b{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+  .stat span{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--sub)}
+  nav.tabs{display:flex;gap:6px;padding:0 0 0}
+  .tab{background:none;border:0;border-bottom:3px solid transparent;color:var(--sub);font-family:var(--font);
+    font-size:16px;font-weight:700;padding:12px 16px;cursor:pointer}
+  .tab[aria-selected="true"]{color:var(--text);border-color:var(--gold)}
+
+  /* controls */
+  .controls{position:sticky;top:0;z-index:5;background:var(--ground);border-bottom:2px solid var(--border);padding:12px 0}
+  .row1{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .search{flex:1;min-width:200px;display:flex;align-items:center;gap:8px;background:var(--card);border:2px solid var(--border);border-radius:12px;padding:10px 13px}
+  .search input{flex:1;min-width:0;border:0;background:transparent;color:var(--text);font-family:var(--font);font-size:16px;line-height:1.5;height:auto;outline:none}
+  .search input::placeholder{color:var(--sub)}
+  select{background:var(--card);color:var(--text);border:2px solid var(--border);border-radius:12px;padding:9px 12px;font-family:var(--font);font-size:14px;cursor:pointer}
+  .facets{display:flex;flex-direction:column;gap:9px;margin-top:11px}
+  .facet{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .flabel{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--sub);flex:none;white-space:nowrap;font-weight:700}
+  .ftoggle{margin-top:11px;background:var(--card);border:2px solid var(--border);border-radius:12px;color:var(--text);font-family:var(--font);font-weight:700;font-size:13px;padding:8px 14px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+  .ftoggle:hover{border-color:var(--sub)}
+  .ftoggle .chev{font-size:10px;color:var(--sub);transition:transform .15s}
+  #fcount{color:var(--blue);font-variant-numeric:tabular-nums}
+  .controls.collapsed .facets{display:none}
+  .controls.collapsed .ftoggle .chev{transform:rotate(-90deg)}
+  .chip{border:2px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:4px 11px;font-size:13px;font-family:var(--font);cursor:pointer;white-space:nowrap;display:inline-flex;gap:6px;align-items:center}
+  .chip:hover{border-color:var(--sub)}
+  .chip .n{color:var(--sub);font-variant-numeric:tabular-nums;font-size:12px}
+  .chip[aria-pressed="true"]{border-color:var(--text);box-shadow:inset 0 0 0 1px var(--text);font-weight:700}
+  .chip.toggle{border-style:dashed;color:var(--blue);font-weight:700}
+  .barline{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 0 6px;flex-wrap:wrap}
+  .count{color:var(--sub);font-size:13px}
+  .clear{background:none;border:0;color:var(--blue);cursor:pointer;font-family:var(--font);font-size:13px;font-weight:700}
+
+  /* grid + cards */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;padding:6px 0 40px}
+  .card{background:var(--card);border:2px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+  .thumb{position:relative;aspect-ratio:16/9;background:#000;cursor:pointer;overflow:hidden}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .thumb .play{position:absolute;inset:0;display:grid;place-items:center;background:rgba(15,15,31,.15)}
+  .thumb .play span{width:54px;height:54px;border-radius:50%;background:rgba(255,0,0,.92);display:grid;place-items:center;color:#fff;font-size:22px;box-shadow:0 2px 10px rgba(0,0,0,.4)}
+  .thumb:hover .play span{transform:scale(1.08)}
+  .thumb .tstamp{position:absolute;top:8px;left:8px;font-size:20px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+  .thumb .views{position:absolute;bottom:8px;right:8px;background:rgba(15,15,31,.8);color:#fff;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;font-variant-numeric:tabular-nums}
+  .thumb iframe{width:100%;height:100%;border:0;display:block}
+  .cbody{padding:12px 13px 7px;flex:1}
+  .ctitle{font-weight:700;font-size:15.5px;line-height:1.25}
+  .cby{color:var(--sub);font-size:13px;margin-top:2px}
+  .cmeta{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+  .cdates{margin-top:8px;font-size:11px;color:var(--sub);font-variant-numeric:tabular-nums}
+  .pill{font-size:11px;padding:2px 9px;border-radius:999px;border:1.5px solid var(--border);color:var(--sub)}
+  .pill.type{color:#1a1a2e;font-weight:700;border:0}
+  .clinks{display:flex;gap:8px;padding:8px 13px 13px}
+  .clinks a{font-size:12.5px;font-weight:700;text-decoration:none;color:var(--sub);border:2px solid var(--border);border-radius:9px;padding:6px 11px}
+  .clinks a.off{opacity:.35;pointer-events:none}
+
+  /* about */
+  .about{max-width:760px;margin:0 auto;padding:36px 0 60px;text-align:center}
+  .about .ahero{font-size:clamp(28px,5vw,44px);margin:0 0 6px}
+  .about .asub{color:var(--sub);font-size:16px;margin:0 0 30px}
+  .about blockquote{margin:16px 0;font-size:19px;line-height:1.5;color:var(--text)}
+  .about blockquote.big{font-size:clamp(22px,3.6vw,30px);font-weight:700;color:var(--gold);border-top:2px solid var(--border);border-bottom:2px solid var(--border);padding:22px 0;margin:28px 0}
+  .about .apurpose{color:var(--sub);font-size:15px;margin-top:26px}
+  .about .alinks{margin-top:22px;font-weight:700}
+  .about .alinks a{color:var(--blue);text-decoration:none;border-bottom:2px solid var(--blue)}
+  .hide{display:none}
+  footer{border-top:2px solid var(--border);padding:20px 0 34px;color:var(--sub);font-size:12.5px;text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <div class="staffband"></div>
+  <div class="wrap head-inner">
+    <img class="avatar" src="./avatar.png" alt="Mario Paint Music Guy">
+    <div class="brand">
+      <h1>Mario Paint Music Guy</h1>
+      <div class="stats">
+        <div class="stat"><b id="s-tracks">0</b><span>Tracks</span></div>
+        <div class="stat"><b id="s-views">0</b><span>Total views</span></div>
+        <div class="stat"><b id="s-cats">0</b><span>Genres</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap"><nav class="tabs">
+    <button class="tab" id="tab-videos" aria-selected="true">Videos</button>
+    <button class="tab" id="tab-about" aria-selected="false">About</button>
+  </nav></div>
+</header>
+
+<div id="view-videos">
+  <div class="controls">
+    <div class="wrap">
+      <div class="row1">
+        <label class="search"><span>&#128269;</span><input id="q" type="search" placeholder="Search song, artist, or source" aria-label="Search"></label>
+        <select id="sort" aria-label="Sort">
+          <option value="views">Most viewed</option>
+          <option value="new">Newest</option>
+          <option value="old">Oldest</option>
+          <option value="az">A to Z</option>
+        </select>
+      </div>
+      <button id="filtersToggle" class="ftoggle"><span>Filters</span><span id="fcount"></span><span class="chev">&#9662;</span></button>
+      <div class="facets" id="facets"></div>
+    </div>
+  </div>
+  <main class="wrap">
+    <div class="barline"><span class="count" id="count"></span><button class="clear" id="clear">Clear filters</button></div>
+    <div class="grid" id="grid"></div>
+  </main>
+</div>
+
+<div id="view-about" class="hide">
+  <div class="wrap about">
+    <p class="asub" style="padding:70px 0">Coming soon</p>
+  </div>
+</div>
+
+<footer class="wrap">Made in original Mario Paint (SNES, 1992). 96 beats, 3 instruments, no sharps or flats.</footer>
+
+<script>
+const CATALOG = __CATALOG__;
+const TYPE_EMOJI={"Video Game":"🎮","Sports":"🏆","Movie":"🎬","TV":"📺","Disney":"🏰","K-Pop":"🎤","Original":"✍️","Holiday":"🎄","Standard":"🎷","Cover":"🎵","Misc":"🔊"};
+const TYPE_COLOR={"Video Game":"#6ec6ff","Sports":"#ffd166","Movie":"#ff8ba7","TV":"#7ed9a0","Disney":"#ff8ba7","K-Pop":"#c792ea","Original":"#ffd166","Holiday":"#7ed9a0","Standard":"#6ec6ff","Cover":"#c792ea","Misc":"#a9a6c4"};
+const DECS=["1930s","1950s","1970s","1980s","1990s","2000s","2010s","2020s"];
+const nf=n=>n==null?"":n.toLocaleString();
+const fmtD=s=>{if(!s)return"";const[y,m,d]=s.split("-");return `${+m}/${+d}/${y}`;};
+const col=t=>TYPE_COLOR[t]||"#6ec6ff", emo=t=>TYPE_EMOJI[t]||"🎵";
+
+let q="", sort="views", fColl=new Set(), fFran=new Set(), fGenre=new Set(), fDec=new Set(), genreOpen=false, franOpen=false;
+const GENRE_LIMIT=8, FRAN_LIMIT=6;
+
+function counts(key){const m={};CATALOG.forEach(c=>(key(c)||[]).forEach(v=>m[v]=(m[v]||0)+1));return m;}
+function facetRow(label,vals,active,cnt,opt){
+  opt=opt||{};
+  let shown=vals, tog="";
+  if(opt.collapsible && vals.length>opt.limit){
+    if(!opt.open){
+      shown=vals.slice(0,opt.limit);
+      vals.slice(opt.limit).forEach(v=>{ if(active.has(v)) shown.push(v); }); // keep active ones visible
+      tog=`<button class="chip toggle" data-tog="${label}">+${vals.length-opt.limit} more</button>`;
+    } else {
+      tog=`<button class="chip toggle" data-tog="${label}">show less</button>`;
+    }
+  }
+  return `<div class="facet"><span class="flabel">${opt.display||label}</span>`+
+    shown.map(v=>`<button class="chip" data-facet="${label}" data-val="${v}" aria-pressed="${active.has(v)}">${v} <span class="n">${cnt[v]||0}</span></button>`).join("")+tog+`</div>`;
+}
+function renderFacets(){
+  const cc=counts(c=>c.collections), fc=counts(c=>c.franchises), gc=counts(c=>c.genres), dc=counts(c=>[c.decade]);
+  const colls=Object.keys(cc).sort((a,b)=>cc[b]-cc[a]);
+  const frans=Object.keys(fc).sort((a,b)=>fc[b]-fc[a]);
+  const genres=Object.keys(gc).sort((a,b)=>gc[b]-gc[a]);
+  const decs=DECS.filter(d=>dc[d]);
+  document.getElementById("facets").innerHTML =
+    facetRow("Collection",colls,fColl,cc)+
+    facetRow("Franchise",frans,fFran,fc,{collapsible:true,open:franOpen,limit:FRAN_LIMIT,display:"Franchise / Artist"})+
+    facetRow("Genre",genres,fGenre,gc,{collapsible:true,open:genreOpen,limit:GENRE_LIMIT})+
+    facetRow("Decade",decs,fDec,dc);
+  document.querySelectorAll(".chip[data-facet]").forEach(b=>b.onclick=()=>{
+    const set={"Collection":fColl,"Franchise":fFran,"Genre":fGenre,"Decade":fDec}[b.dataset.facet];
+    set.has(b.dataset.val)?set.delete(b.dataset.val):set.add(b.dataset.val); render();
+  });
+  document.querySelectorAll(".chip.toggle").forEach(b=>b.onclick=()=>{
+    if(b.dataset.tog==="Genre") genreOpen=!genreOpen;
+    if(b.dataset.tog==="Franchise") franOpen=!franOpen;
+    renderFacets();
+  });
+}
+function match(c){
+  if(fColl.size && !c.collections.some(x=>fColl.has(x))) return false;
+  if(fFran.size && !c.franchises.some(x=>fFran.has(x))) return false;
+  if(fDec.size && !fDec.has(c.decade)) return false;
+  if(fGenre.size && !c.genres.some(g=>fGenre.has(g))) return false;
+  if(q){const h=(c.song+" "+c.artist+" "+c.source+" "+c.type+" "+c.genres.join(" ")).toLowerCase(); if(!h.includes(q))return false;}
+  return true;
+}
+function sortFn(a,b){
+  if(sort==="views")return (b.regViews||0)-(a.regViews||0);
+  if(sort==="new")return (b.recorded||"").localeCompare(a.recorded||"");
+  if(sort==="old")return (a.recorded||"").localeCompare(b.recorded||"");
+  return a.song.localeCompare(b.song);
+}
+function card(c){
+  const by=c.artist?`by ${c.artist}`:(c.source?`from ${c.source}`:"");
+  const genrePills=c.genres.slice(0,3).map(g=>`<span class="pill">${g}</span>`).join("");
+  return `<article class="card">
+    <div class="thumb" data-id="${c.regId}">
+      <img loading="lazy" src="https://i.ytimg.com/vi/${c.regId}/hqdefault.jpg" alt="">
+      <span class="views">&#9654; ${nf(c.regViews)}</span>
+      <div class="play"><span>&#9654;</span></div>
+    </div>
+    <div class="cbody">
+      <div class="ctitle">${c.song}</div>
+      <div class="cby">${by}${c.artist&&c.source?` &middot; ${c.source}`:""}</div>
+      <div class="cmeta">${c.decade?`<span class="pill">${c.decade}</span>`:""}${genrePills}</div>
+      <div class="cdates">${c.recorded?`Recorded ${fmtD(c.recorded)}`:""}${c.published?` &middot; Published ${fmtD(c.published)}`:""}</div>
+    </div>
+    <div class="clinks"><a href="https://www.youtube.com/watch?v=${c.regId}" target="_blank" rel="noopener">Open on YouTube &#8599;</a></div>
+  </article>`;
+}
+function render(){
+  const list=CATALOG.filter(match).sort(sortFn);
+  const grid=document.getElementById("grid");
+  grid.innerHTML=list.length?list.map(card).join(""):`<div style="grid-column:1/-1;padding:50px;text-align:center;color:var(--sub)">No tracks match. Try clearing a filter.</div>`;
+  grid.querySelectorAll(".thumb").forEach(t=>t.onclick=()=>{
+    t.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${t.dataset.id}?autoplay=1&rel=0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
+  });
+  const nf2=fColl.size+fFran.size+fGenre.size+fDec.size;
+  document.getElementById("count").textContent=`Showing ${list.length} of ${CATALOG.length} tracks${nf2?` (${nf2} filter${nf2>1?"s":""})`:""}${q?` for “${q}”`:""}`;
+  document.getElementById("fcount").textContent=nf2?` (${nf2})`:"";
+  renderFacets();
+}
+document.getElementById("q").addEventListener("input",e=>{q=e.target.value.trim().toLowerCase();render();});
+document.getElementById("sort").addEventListener("change",e=>{sort=e.target.value;render();});
+document.getElementById("clear").onclick=()=>{q="";fColl.clear();fFran.clear();fGenre.clear();fDec.clear();document.getElementById("q").value="";render();};
+function showTab(which){
+  document.getElementById("view-videos").classList.toggle("hide",which!=="videos");
+  document.getElementById("view-about").classList.toggle("hide",which!=="about");
+  document.getElementById("tab-videos").setAttribute("aria-selected",which==="videos");
+  document.getElementById("tab-about").setAttribute("aria-selected",which==="about");
+}
+document.getElementById("tab-videos").onclick=()=>showTab("videos");
+document.getElementById("tab-about").onclick=()=>showTab("about");
+let filtersOpen = window.innerWidth > 640;   // open on desktop, closed on mobile
+function applyFilters(){ document.querySelector(".controls").classList.toggle("collapsed", !filtersOpen); }
+document.getElementById("filtersToggle").onclick=()=>{ filtersOpen=!filtersOpen; applyFilters(); };
+applyFilters();
+document.getElementById("s-tracks").textContent=CATALOG.length;
+document.getElementById("s-views").textContent=nf(CATALOG.reduce((s,c)=>s+(c.regViews||0),0));
+document.getElementById("s-cats").textContent=Object.keys(counts(c=>c.genres)).length;
+render();
+</script>
+</body>
+</html>
