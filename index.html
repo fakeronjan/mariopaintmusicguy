@@ -208,6 +208,7 @@ const TYPE_EMOJI={"Video Game":"🎮","Sports":"🏆","Movie":"🎬","TV":"📺"
 const TYPE_COLOR={"Video Game":"#6ec6ff","Sports":"#ffd166","Movie":"#ff8ba7","TV":"#7ed9a0","Disney":"#ff8ba7","K-Pop":"#c792ea","Original":"#ffd166","Holiday":"#7ed9a0","Standard":"#6ec6ff","Cover":"#c792ea","Misc":"#a9a6c4"};
 const DECS=["1930s","1950s","1970s","1980s","1990s","2000s","2010s","2020s"];
 const nf=n=>n==null?"":n.toLocaleString();
+const tv=c=>(c.regViews||0)+(c.shortViews||0);
 const fmtD=s=>{if(!s)return"";const[y,m,d]=s.split("-");return `${+m}/${+d}/${y}`;};
 const col=t=>TYPE_COLOR[t]||"#6ec6ff", emo=t=>TYPE_EMOJI[t]||"🎵";
 
@@ -260,7 +261,7 @@ function match(c){
   return true;
 }
 function sortFn(a,b){
-  if(sort==="views")return (b.regViews||0)-(a.regViews||0);
+  if(sort==="views")return tv(b)-tv(a);
   if(sort==="new")return (b.recorded||"").localeCompare(a.recorded||"");
   if(sort==="old")return (a.recorded||"").localeCompare(b.recorded||"");
   return a.song.localeCompare(b.song);
@@ -271,7 +272,7 @@ function card(c){
   return `<article class="card">
     <div class="thumb" data-id="${c.regId}">
       <img loading="lazy" src="https://i.ytimg.com/vi/${c.regId}/hqdefault.jpg" alt="">
-      <span class="views">&#9654; ${nf(c.regViews)}</span>
+      <span class="views">&#9654; ${nf(tv(c))}</span>
       <div class="play"><span>&#9654;</span></div>
     </div>
     <div class="cbody">
