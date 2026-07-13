@@ -223,8 +223,6 @@
 
 <script>
 const CATALOG = __CATALOG__;
-const TYPE_EMOJI={"Video Game":"🎮","Sports":"🏆","Movie":"🎬","TV":"📺","Disney":"🏰","K-Pop":"🎤","Original":"✍️","Holiday":"🎄","Standard":"🎷","Cover":"🎵","Misc":"🔊"};
-const TYPE_COLOR={"Video Game":"#6ec6ff","Sports":"#ffd166","Movie":"#ff8ba7","TV":"#7ed9a0","Disney":"#ff8ba7","K-Pop":"#c792ea","Original":"#ffd166","Holiday":"#7ed9a0","Standard":"#6ec6ff","Cover":"#c792ea","Misc":"#a9a6c4"};
 const DECS=["1930s","1950s","1970s","1980s","1990s","2000s","2010s","2020s"];
 const nf=n=>n==null?"":n.toLocaleString();
 const tv=c=>(c.regViews||0)+(c.shortViews||0);
@@ -234,7 +232,6 @@ const SONGCOLOR={};
 CATALOG.slice().sort((a,b)=>(a.recorded||"").localeCompare(b.recorded||"")||(a.published||"").localeCompare(b.published||"")||a.regId.localeCompare(b.regId))
   .forEach((c,i)=>{SONGCOLOR[c.regId]=NAMECOLORS[i%5];});
 const fmtD=s=>{if(!s)return"";const[y,m,d]=s.split("-");return `${+m}/${+d}/${y}`;};
-const col=t=>TYPE_COLOR[t]||"#6ec6ff", emo=t=>TYPE_EMOJI[t]||"🎵";
 
 let q="", sort="views", fColl=new Set(), fFran=new Set(), fGenre=new Set(), fDec=new Set(), genreOpen=false, franOpen=false;
 const GENRE_LIMIT=8, FRAN_LIMIT=6;
