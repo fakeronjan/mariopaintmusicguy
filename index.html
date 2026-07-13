@@ -283,8 +283,8 @@ function match(c){
 }
 function sortFn(a,b){
   if(sort==="views")return tv(b)-tv(a);
-  if(sort==="new")return (b.recorded||"").localeCompare(a.recorded||"");
-  if(sort==="old")return (a.recorded||"").localeCompare(b.recorded||"");
+  if(sort==="new")return (b.published||"").localeCompare(a.published||"");
+  if(sort==="old")return (a.published||"").localeCompare(b.published||"");
   return a.song.localeCompare(b.song);
 }
 function card(c){
