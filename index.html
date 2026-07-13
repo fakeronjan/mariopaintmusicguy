@@ -149,8 +149,8 @@
       <div class="row1">
         <label class="search"><span>&#128269;</span><input id="q" type="search" placeholder="Search song, artist, or source" aria-label="Search"></label>
         <select id="sort" aria-label="Sort">
+          <option value="new" selected>Newest</option>
           <option value="views">Most viewed</option>
-          <option value="new">Newest</option>
           <option value="old">Oldest</option>
           <option value="az">A to Z</option>
         </select>
@@ -233,7 +233,7 @@ CATALOG.slice().sort((a,b)=>(a.recorded||"").localeCompare(b.recorded||"")||(a.p
   .forEach((c,i)=>{SONGCOLOR[c.regId]=NAMECOLORS[i%5];});
 const fmtD=s=>{if(!s)return"";const[y,m,d]=s.split("-");return `${+m}/${+d}/${y}`;};
 
-let q="", sort="views", fColl=new Set(), fFran=new Set(), fGenre=new Set(), fDec=new Set(), genreOpen=false, franOpen=false;
+let q="", sort="new", fColl=new Set(), fFran=new Set(), fGenre=new Set(), fDec=new Set(), genreOpen=false, franOpen=false;
 const GENRE_LIMIT=8, FRAN_LIMIT=6;
 
 function counts(key){const m={};CATALOG.forEach(c=>(key(c)||[]).forEach(v=>m[v]=(m[v]||0)+1));return m;}
