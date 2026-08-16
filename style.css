@@ -21,10 +21,27 @@ a{color:inherit}
 header{background:var(--ground-2);border-bottom:2px solid var(--border)}
 .staffband{height:10px;background:repeating-linear-gradient(90deg,
   var(--blue) 0 20%,var(--pink) 20% 40%,var(--gold) 40% 60%,var(--mint) 60% 80%,var(--purple) 80% 100%);opacity:.85}
-.head-inner{display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding-top:clamp(18px,3.5vw,28px);padding-bottom:clamp(18px,3.5vw,28px)}
-.brand-group{display:flex;gap:18px;align-items:center;min-width:0;flex:1 1 auto}
-.controls-group{display:flex;gap:10px;align-items:center;flex:none}
-.avatar{width:84px;height:84px;flex:none;border-radius:16px;border:3px solid #1a1a2e;object-fit:cover;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.head-inner{
+  display:grid;
+  grid-template-areas:"avatar brand controls";
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  column-gap:18px;
+  padding-top:clamp(18px,3.5vw,28px);
+  padding-bottom:clamp(18px,3.5vw,28px);
+}
+.avatar{grid-area:avatar;width:84px;height:84px;border-radius:16px;border:3px solid #1a1a2e;object-fit:cover;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.head-inner .brand{grid-area:brand;min-width:0}
+.controls-group{grid-area:controls;display:flex;gap:10px;align-items:center}
+@media (max-width:600px){
+  .head-inner{
+    grid-template-areas:
+      "avatar . controls"
+      "brand brand brand";
+    grid-template-columns:auto 1fr auto;
+    row-gap:10px;
+  }
+}
 .brand h1{margin:0;font-size:clamp(26px,4.4vw,40px);font-weight:700;letter-spacing:-.01em;line-height:1.05}
 .brand .tagline{margin:6px 0 0;color:var(--sub);font-size:clamp(13px,1.6vw,16px);white-space:nowrap}
 @media (max-width:640px){ .brand .tagline{white-space:normal;font-size:13px} }
