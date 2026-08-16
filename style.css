@@ -7,9 +7,11 @@
   --text:var(--cream); --sub:var(--muted); --border:var(--line);
 }
 @media (prefers-color-scheme:light){
-  :root{ --ground:#fff8e7; --ground-2:#f4ecd6; --card:#fff; --card-2:#fbf5e6;
+  :root:not([data-theme="dark"]){ --ground:#fffefb; --ground-2:#fdfbf5; --card:#fff; --card-2:#fffef9;
     --text:#1a1a2e; --sub:#6a6784; --border:#e6dcc2; }
 }
+:root[data-theme="light"]{ --ground:#fffefb; --ground-2:#fdfbf5; --card:#fff; --card-2:#fffef9;
+  --text:#1a1a2e; --sub:#6a6784; --border:#e6dcc2; }
 *{box-sizing:border-box}
 body{margin:0;background:var(--ground);color:var(--text);font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased}
 a{color:inherit}
@@ -32,6 +34,17 @@ nav.tabs::-webkit-scrollbar{display:none}
 .tab{background:none;border:0;border-bottom:3px solid transparent;color:var(--sub);font-family:var(--font);
   font-size:15px;font-weight:700;padding:12px 14px;cursor:pointer;text-decoration:none;white-space:nowrap;flex:none}
 .tab[aria-current="page"]{color:var(--text);border-color:var(--gold)}
+
+.theme-toggle{margin-left:auto;flex:none;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;padding:0;border:2px solid var(--border);border-radius:50%;background:none;color:var(--text);cursor:pointer}
+.theme-toggle:hover{border-color:var(--sub)}
+.theme-toggle .icon-moon{display:block}
+.theme-toggle .icon-sun{display:none}
+@media (prefers-color-scheme:light){
+  :root:not([data-theme="dark"]) .theme-toggle .icon-moon{display:none}
+  :root:not([data-theme="dark"]) .theme-toggle .icon-sun{display:block}
+}
+:root[data-theme="light"] .theme-toggle .icon-moon{display:none}
+:root[data-theme="light"] .theme-toggle .icon-sun{display:block}
 
 /* controls */
 .controls{position:sticky;top:0;z-index:5;background:var(--ground);border-bottom:2px solid var(--border);padding:12px 0}
@@ -74,8 +87,13 @@ select{background:var(--card);color:var(--text);border:2px solid var(--border);b
 /* each song title gets one of the 5 staff-band colors, stable per song */
 .nc-blue{color:var(--blue)} .nc-pink{color:var(--pink)} .nc-gold{color:var(--gold)} .nc-mint{color:var(--mint)} .nc-purple{color:var(--purple)}
 @media (prefers-color-scheme:light){
-  .nc-blue{color:#2079a8} .nc-pink{color:#cf5175} .nc-gold{color:#9c6f12} .nc-mint{color:#2e8b5c} .nc-purple{color:#8a4bc2}
+  :root:not([data-theme="dark"]) .nc-blue{color:#2079a8} :root:not([data-theme="dark"]) .nc-pink{color:#cf5175}
+  :root:not([data-theme="dark"]) .nc-gold{color:#9c6f12} :root:not([data-theme="dark"]) .nc-mint{color:#2e8b5c}
+  :root:not([data-theme="dark"]) .nc-purple{color:#8a4bc2}
 }
+:root[data-theme="light"] .nc-blue{color:#2079a8} :root[data-theme="light"] .nc-pink{color:#cf5175}
+:root[data-theme="light"] .nc-gold{color:#9c6f12} :root[data-theme="light"] .nc-mint{color:#2e8b5c}
+:root[data-theme="light"] .nc-purple{color:#8a4bc2}
 .cby{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 10px;color:var(--sub);font-size:13px;margin-top:2px}
 .cby .by{min-width:0}
 .cby a{flex:none;font-size:12.5px;font-weight:700;text-decoration:none;color:var(--sub);border:2px solid var(--border);border-radius:9px;padding:5px 10px}
@@ -98,12 +116,17 @@ select{background:var(--card);color:var(--text);border:2px solid var(--border);b
 .about section:nth-of-type(5n+4) h3{color:var(--mint)}
 .about section:nth-of-type(5n+5) h3{color:var(--purple)}
 @media (prefers-color-scheme:light){
-  .about section:nth-of-type(5n+1) h3{color:#2079a8}
-  .about section:nth-of-type(5n+2) h3{color:#cf5175}
-  .about section:nth-of-type(5n+3) h3{color:#9c6f12}
-  .about section:nth-of-type(5n+4) h3{color:#2e8b5c}
-  .about section:nth-of-type(5n+5) h3{color:#8a4bc2}
+  :root:not([data-theme="dark"]) .about section:nth-of-type(5n+1) h3{color:#2079a8}
+  :root:not([data-theme="dark"]) .about section:nth-of-type(5n+2) h3{color:#cf5175}
+  :root:not([data-theme="dark"]) .about section:nth-of-type(5n+3) h3{color:#9c6f12}
+  :root:not([data-theme="dark"]) .about section:nth-of-type(5n+4) h3{color:#2e8b5c}
+  :root:not([data-theme="dark"]) .about section:nth-of-type(5n+5) h3{color:#8a4bc2}
 }
+:root[data-theme="light"] .about section:nth-of-type(5n+1) h3{color:#2079a8}
+:root[data-theme="light"] .about section:nth-of-type(5n+2) h3{color:#cf5175}
+:root[data-theme="light"] .about section:nth-of-type(5n+3) h3{color:#9c6f12}
+:root[data-theme="light"] .about section:nth-of-type(5n+4) h3{color:#2e8b5c}
+:root[data-theme="light"] .about section:nth-of-type(5n+5) h3{color:#8a4bc2}
 .chapter p{font-size:17px;line-height:1.68;margin:0 0 15px}
 .chapter p:last-child{margin-bottom:0}
 .chapter a{color:var(--blue);text-decoration:none;border-bottom:1.5px solid currentColor;font-weight:600}
