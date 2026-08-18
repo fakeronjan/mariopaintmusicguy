@@ -8,10 +8,10 @@
 }
 @media (prefers-color-scheme:light){
   :root:not([data-theme="dark"]){ --ground:#fffefb; --ground-2:#fdfbf5; --card:#fff; --card-2:#fffef9;
-    --text:#1a1a2e; --sub:#6a6784; --border:#e6dcc2; }
+    --text:#1a1a2e; --sub:#6a6784; --border:#ddd0ea; }
 }
 :root[data-theme="light"]{ --ground:#fffefb; --ground-2:#fdfbf5; --card:#fff; --card-2:#fffef9;
-  --text:#1a1a2e; --sub:#6a6784; --border:#e6dcc2; }
+  --text:#1a1a2e; --sub:#6a6784; --border:#ddd0ea; }
 *{box-sizing:border-box}
 body{margin:0;background:var(--ground);color:var(--text);font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased}
 a{color:inherit}
