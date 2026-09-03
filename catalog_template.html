@@ -143,9 +143,12 @@ function card(c){
     </div>
     <div class="cbody">
       <div class="ctitle nc-${SONGCOLOR[c.regId]}">${c.song}</div>
-      <div class="cby"><span class="by">${by}${c.artist&&c.source?` &middot; ${c.source}`:""}</span><a href="https://www.youtube.com/watch?v=${c.regId}" target="_blank" rel="noopener">Open on YouTube &#8599;</a></div>
+      <div class="cby"><span class="by">${by}${c.artist&&c.source?` &middot; ${c.source}`:""}</span></div>
       <div class="cmeta">${c.decade?`<span class="pill">${c.decade}</span>`:""}${genrePills}</div>
-      <div class="cdates">${c.recorded?`Recorded ${fmtD(c.recorded)}`:""}${c.published?` &middot; Published ${fmtD(c.published)}`:""}</div>
+      <div class="cdates">
+        <div class="cdstack">${c.recorded?`<span>Recorded ${fmtD(c.recorded)}</span>`:""}${c.published?`<span>Published ${fmtD(c.published)}</span>`:""}</div>
+        <a href="https://www.youtube.com/watch?v=${c.regId}" target="_blank" rel="noopener">Open on YouTube &#8599;</a>
+      </div>
     </div>
   </article>`;
 }
