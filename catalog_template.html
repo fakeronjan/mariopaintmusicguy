@@ -143,7 +143,7 @@ function card(c){
     </div>
     <div class="cbody">
       <div class="ctitle nc-${SONGCOLOR[c.regId]}">${c.song}</div>
-      <div class="cby"><span class="by">${by}${c.artist&&c.source?` &middot; ${c.source}`:""}</span></div>
+      <div class="cby"><span class="by">${by}${c.artist&&c.source&&c.source.toLowerCase()!==c.artist.toLowerCase()?` &middot; ${c.source}`:""}</span></div>
       <div class="cmeta">${c.decade?`<span class="pill">${c.decade}</span>`:""}${genrePills}</div>
       <div class="cdates">
         <div class="cdstack">${c.recorded?`<span>Recorded ${fmtD(c.recorded)}</span>`:""}${c.published?`<span>Published ${fmtD(c.published)}</span>`:""}</div>
