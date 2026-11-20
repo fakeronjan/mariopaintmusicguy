@@ -80,12 +80,13 @@ select{background:var(--card);color:var(--text);border:2px solid var(--border);b
 .facets{display:flex;flex-direction:column;gap:9px;margin-top:11px}
 .facet{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .flabel{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--sub);flex:none;white-space:nowrap;font-weight:700}
-.ftoggle{margin-top:11px;background:var(--card);border:2px solid var(--border);border-radius:12px;color:var(--text);font-family:var(--font);font-weight:700;font-size:13px;padding:8px 14px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.ftoggle{background:var(--card);border:2px solid var(--border);border-radius:12px;color:var(--text);font-family:var(--font);font-weight:700;font-size:14px;padding:10px 14px;cursor:pointer;display:inline-flex;white-space:nowrap;align-items:center;gap:8px}
 .ftoggle:hover{border-color:var(--sub)}
 .ftoggle .chev{font-size:10px;color:var(--sub);transition:transform .15s}
 #fcount{color:var(--blue);font-variant-numeric:tabular-nums}
 .controls.collapsed .facets{display:none}
 .controls.collapsed .ftoggle .chev{transform:rotate(-90deg)}
+@media (max-width:600px){ .row1 .search{flex-basis:100%} .row1 #sort{flex:1} }
 .chip{border:2px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:4px 11px;font-size:13px;font-family:var(--font);cursor:pointer;white-space:nowrap;display:inline-flex;gap:6px;align-items:center}
 .chip:hover{border-color:var(--sub)}
 .chip .n{color:var(--sub);font-variant-numeric:tabular-nums;font-size:12px}

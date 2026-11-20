@@ -54,8 +54,8 @@
         <option value="views">Most viewed</option>
         <option value="az">A to Z</option>
       </select>
+      <button id="filtersToggle" class="ftoggle"><span>Filters</span><span id="fcount"></span><span class="chev">&#9662;</span></button>
     </div>
-    <button id="filtersToggle" class="ftoggle"><span>Filters</span><span id="fcount"></span><span class="chev">&#9662;</span></button>
     <div class="facets" id="facets"></div>
   </div>
 </div>
@@ -167,7 +167,7 @@ function render(){
 document.getElementById("q").addEventListener("input",e=>{q=e.target.value.trim().toLowerCase();render();});
 document.getElementById("sort").addEventListener("change",e=>{sort=e.target.value;render();});
 document.getElementById("clear").onclick=()=>{q="";fColl.clear();fFran.clear();fGenre.clear();fDec.clear();document.getElementById("q").value="";render();};
-let filtersOpen = window.innerWidth > 640;   // open on desktop, closed on mobile
+let filtersOpen = false;   // closed on load so more videos show above the fold
 function applyFilters(){ document.querySelector(".controls").classList.toggle("collapsed", !filtersOpen); }
 document.getElementById("filtersToggle").onclick=()=>{ filtersOpen=!filtersOpen; applyFilters(); };
 applyFilters();
