@@ -48,13 +48,13 @@
   <div class="wrap">
     <div class="row1">
       <label class="search"><span>&#128269;</span><input id="q" type="search" placeholder="Search song, artist, or source" aria-label="Search"></label>
-      <select id="sort" aria-label="Sort">
+      <span class="selwrap"><select id="sort" aria-label="Sort">
         <option value="new" selected>Newest</option>
         <option value="old">Oldest</option>
         <option value="views">Most viewed</option>
         <option value="az">A to Z</option>
-      </select>
-      <button id="filtersToggle" class="ftoggle"><span>Filters</span><span id="fcount"></span><span class="chev">&#9662;</span></button>
+      </select><svg class="chev" viewBox="0 0 12 8" width="12" height="8" aria-hidden="true"><path d="M1 1.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <button id="filtersToggle" class="ftoggle"><span>Filters</span><span id="fcount"></span><svg class="chev" viewBox="0 0 12 8" width="12" height="8" aria-hidden="true"><path d="M1 1.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
     <div class="facets" id="facets"></div>
   </div>
